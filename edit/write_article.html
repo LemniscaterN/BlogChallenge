@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<!-- https://qiita.com/legokichi/items/27b7b865a0ab28b5d530 -->
+<head>
+  <meta charset="UTF-8"/>
+  <title>記事の作成画面</title>
+
+  <!-- MathJax https://www.mathjax.org/#gettingstarted -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Marked https://marked.js.org/ -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!--JQuery https://code.jquery.com/-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="myReset.css">
+  <link rel="stylesheet" href="translater.css">
+
+</head>
+<body>
+  <header>ヘッダー</header>
+
+  
+    <div id="main">
+      <form action="#" method="post" id="article-form">
+        <div id="article-info">
+            <input type="text" name="title" id="title" value="タイトル">
+            <input type="text" name="tag"  id="tag" value="タグ">
+        </div>
+        <div class="article">
+          <div class="article-half-bar">
+            <p>input</p>
+          </div>
+          <div class="article-half-bar">
+            <p>output<p>
+          </div>
+
+          <div class="article-half">
+            <textarea id="input"></textarea>
+          </div>
+          <div class="article-half">
+            <div id="output"></div>
+          </div>
+        </div>
+        <div id="save-buttons">
+          <input type="submit"  id="post" value="投稿">
+          <input type="submit" id="save" value="保存">
+        </div>
+      </form>
+    </div>
+  
+  <footer>フッターです</footer>
+</body>
+
+
+<script src="./mdToHTML.js"></script>
+<script src="./save_article.js"></script>
+
+</html>

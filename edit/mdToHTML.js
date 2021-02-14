@@ -1,7 +1,9 @@
+
+
 window.MathJax = {
-  startup: {
-    typeset: false
-  },
+  // startup: {
+  //   typeset: false
+  // },
   tex: {
     inlineMath: [ ['$','$'], ["\(","\)"] ],
     displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
@@ -26,49 +28,62 @@ marked.setOptions({
 });
 
 function mdToHTML(){
-  text = $("#input").val();
-// markedにlatexタグ食わせると&<>とかがエスケープされるので<pre />で包んで退避
-// ちなみに```mathとかで<pre><code class="lang-math">になったのはエスケープされるので注意
-  const PREFIX = "<pre><code class=\"lang-math\">";
-  const SUFFIX = "</code></pre>";
+let text = $("#input").val();
+  
+let result = new RegExp(/<pre><code>([\S\s]+?)<\/pre><\/code>/igm);
 
-  const reg = new RegExp( ("(?:" + PREFIX + "([\\s\\S]*?)" + SUFFIX + ")").replace(/\//g, "\/"), "gm");
-  let wraped = text.split("$$")
-  .reduce(function(sum, str, i){
-    return i % 2 === 0 ?
-           sum + str :
-           sum + PREFIX + str + SUFFIX;
-  }, "");
-  const html = marked(wraped);
-  console.log(html);
+let resultArray=text.split(result);
 
-
-  // 退避したlatexタグを$$で包み直す
-  let _html = html;
-  let tuple = null;
-  while(tuple = reg.exec(html)){
-    _html = _html.split(tuple[0]).join("$$" + tuple[1] + "$$");
+const len = resultArray.length
+// console.log("***"+len);
+if(len>=3){
+  for (let i = 1; i < len; i+=2) {
+    // console.log("loop:"+resultArray[i]);
+    text=text.replace(resultArray[i],escapeHTML(resultArray[i]));
   }
-  // mathjaxで処理
-  const div = document.getElementById("output");
-  div.innerHTML = _html;
-  MathJax.typesetPromise();
+}
+  
+let div = document.getElementById("output");
+div.innerHTML = text;
+
+div.querySelectorAll('pre code').forEach((block) => {    
+  hljs.highlightBlock(block);
+});
+
+MathJax.typesetPromise();
+div.innerHTML=marked(div.innerHTML);
+
 };
 
-
 $("#preview").click(function() {
-  mdToHTML();
+mdToHTML();
 });
 $('#input').keyup(
-  function(){
-    checkChange(this);
-  }
-);
-let olddata = $("#input").val();
-function checkChange(e){
-    const newinput = $(e).val();
-    if(olddata!=newinput){
-      mdToHTML();
-      olddata=newinput;
-    }
+function(){
+  checkChange(this);
 }
+);
+
+let olddata = $("#input").val();
+
+function checkChange(e){
+  const newinput = $(e).val();
+  if(olddata!=newinput){
+    mdToHTML();
+    olddata=newinput;
+
+  }
+}
+
+
+var escapeHTML = function (str) {
+return str
+        .replace(/\</g, '&lt;')
+        .replace(/\>/g, '&gt;');
+};
+
+//MathJaxの読み込みタイミングが遅すぎるので表示に失敗することがあるon loadも同じ。
+// $(document).ready(function(){
+//   alert("ok");
+//   mdToHTML();
+// });

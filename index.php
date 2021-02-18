@@ -56,6 +56,8 @@
     <meta name="description" content="情報系大学生によるポートフォリオを兼ねたプログラミング関連の雑記メモ">
     <meta name="author" content="Fuji">
 
+
+
     <!-- jQuery読み込み -->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <!-- BootstrapのCSS読み込み -->
@@ -77,13 +79,22 @@
     <!-- オリジナル -->
     <link href="index.css" rel="stylesheet">
 
+    <html lang="ja" prefix="og: http://ogp.me/ns#">
+    <meta property="og:url" content="URL"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="ふじろぐトップページ"/>
+    <meta property="og:description" content="情報系大学生によるポートフォリオを兼ねたゆるいブログ"/>
+    <meta property="og:site_name" content="ふじろぐ"/>
+    <meta property="og:image" content="/img/icon.png"/>
+    <meta name="twitter:card" content="summary">
+
   </head>
   <body>
 
     <header>
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#6699CC;">
         <h1>
-          <a class="navbar-brand" href="index.php">フジログ</a>
+          <a class="navbar-brand" href="index.php">ふじろぐ</a>
         </h1>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

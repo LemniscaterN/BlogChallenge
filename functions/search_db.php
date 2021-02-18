@@ -201,11 +201,11 @@ function word_search_db($words,$page){
         //エラー発生で例外を投げる
         $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $stmt = $db->query($sql2);
-        $stmt->execute();   
+        // $stmt->execute();   
         $count = $stmt -> rowCount();
 
         $stmt = $db->query($sql1);
-        $stmt->execute();   
+        // $stmt->execute();   
 
         $rows=[];
         $key=0;
@@ -239,30 +239,29 @@ function tag_search_db($tag,$page){
         $db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
         // //エラー発生で例外を投げる
         $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
         //ヒット件数の取得
         $stmt = $db->prepare('
-        SELECT * FROM 
-                (SELECT id FROM articles LEFT JOIN 
-                    (SELECT articleId , GROUP_CONCAT(name) as tags 
-                FROM (SELECT tag_map.articleId , tag.name FROM tag_map JOIN tag ON tag_map.tagId = tag.id) AS subq 
-                GROUP BY articleId) AS subq2 ON articles.id = articleId)AS subq1 WHERE EXISTS 
-                ( SELECT * FROM (SELECT articleId as ai FROM tag_map WHERE tagId= (SELECT id FROM tag WHERE name=:tag) ) AS subq1 
-                WHERE id= ai )
+            SELECT id,title,content,tags,date FROM 
+                (SELECT * FROM  articles WHERE EXISTS
+                    (SELECT * FROM 
+                        (SELECT articleId as ai FROM tag_map WHERE tagId= (SELECT id FROM tag WHERE name=:tag) ) AS subq1
+                    WHERE articles.id= ai)) As subq2 
+                JOIN  (SELECT articleId , GROUP_CONCAT(name) as tags FROM (SELECT tag_map.articleId , tag.name FROM tag_map JOIN tag ON tag_map.tagId = tag.id) AS subq 
+            GROUP BY articleId) AS subq3 ON id=articleId
         ');
         $stmt->bindValue(':tag',$tag, PDO::PARAM_STR); 
         $stmt->execute();
         $count = $stmt -> rowCount();
   
         $stmt = $db->prepare('
-                SELECT * FROM 
-                    (SELECT id,title,content,date,tags FROM articles LEFT JOIN 
-                        (SELECT articleId , GROUP_CONCAT(name) as tags 
-                    FROM (SELECT tag_map.articleId , tag.name FROM tag_map JOIN tag ON tag_map.tagId = tag.id) AS subq 
-                GROUP BY articleId) AS subq2 ON articles.id = articleId)AS subq1 WHERE EXISTS 
-                    ( SELECT * FROM (SELECT articleId as ai FROM tag_map WHERE tagId= (SELECT id FROM tag WHERE name=:tag) ) AS subq1 
-                WHERE id= ai ) ORDER BY date DESC LIMIT :page,10
-        ', array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+            SELECT id,title,content,tags,date FROM 
+                (SELECT * FROM  articles WHERE EXISTS
+                    (SELECT * FROM 
+                        (SELECT articleId as ai FROM tag_map WHERE tagId= (SELECT id FROM tag WHERE name=:tag) ) AS subq1
+                    WHERE articles.id= ai)) As subq2 
+                JOIN  (SELECT articleId , GROUP_CONCAT(name) as tags FROM (SELECT tag_map.articleId , tag.name FROM tag_map JOIN tag ON tag_map.tagId = tag.id) AS subq 
+            GROUP BY articleId) AS subq3 ON id=articleId ORDER BY date DESC LIMIT :page,10
+        ');
         $stmt->bindValue(':tag',$tag, PDO::PARAM_STR); 
         $stmt->bindValue(':page',$page*10, PDO::PARAM_STR); 
         $stmt->execute();

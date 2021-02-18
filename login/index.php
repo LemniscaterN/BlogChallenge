@@ -10,7 +10,9 @@
       header('Location:../index.php'); 
   }
   else if( isset($_POST['name']) && isset($_POST['password']) ){
-    if(login()==true)header('Location:../index.php');
+    if(login()==true){
+      header('Location:../index.php');
+    }
   }
 ?>
 <!DOCTYPE html>

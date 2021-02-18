@@ -21,7 +21,7 @@
   switch(1):
     case 1:
       if(is_numeric(filter_input(INPUT_GET,'articleId'))==true){
-          if(filter_input(INPUT_GET,'articleId')>0){
+          if(filter_input(INPUT_GET,'articleId')>=0){
             $articleArray=getArticleById($_GET['articleId']);
             if($articleArray!=false){
               $articleId=$_GET['articleId'];
@@ -40,8 +40,6 @@
       }
   endswitch;
 ?>
-
-
 <!DOCTYPE html>
 <html lang="ja">
   <head>

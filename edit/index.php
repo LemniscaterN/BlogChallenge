@@ -12,8 +12,6 @@
   }
 
   
-
-  
   if (isset($_SESSION['id'])==false)loca();
 
   $articleId="-1";
@@ -23,8 +21,9 @@
   $tags=[];
   $page=filter_input(INPUT_GET,"page")==null?0:filter_input(INPUT_GET,"page");
 
-  if(filter_input(INPUT_GET,'articleId')==true){
-    if(is_numeric(filter_input(INPUT_GET,'articleId'))==false)loca();
+  
+  if(is_numeric(filter_input(INPUT_GET,'articleId'))==false);
+  else{
     $articleArray=getArticleById($_GET['articleId'],$page);
     if($articleArray!=false){
       $articleId=$_GET['articleId'];
@@ -32,8 +31,9 @@
       $date = $articleArray["date"];
       $content = $articleArray["content"];
       $tags = $articleArray["tags"];
-    }else $articleId="-1";
+    }
   }
+
   
   $token=bin2hex(random_bytes(24));
   $_SESSION['token']=$token;
@@ -116,6 +116,11 @@
                   }
                 ?>">
           </div>
+
+          <div class="row d-flex justify-content-end">
+            <label><input  type="checkbox" name="preview" checked>プレビュー</label>
+          </div>
+
           <br>
 
           <div class="row">
@@ -132,7 +137,7 @@
             <button type="button" class="post-btn" name="post" value="post">投稿
             <input type="hidden" name="token" value="<?php echo $token;?>">
             <input type="hidden" name="articleId" value="<?php echo $articleId;?>">
-            <input name="key" type="hidden" value="poaast">
+            <input name="key" type="hidden" value="post">
           </div>
         </div>
         </form>

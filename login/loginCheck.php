@@ -3,7 +3,7 @@
 function my_session_start() {
     session_start();
     // 古過ぎるセッションIDを使うことを許してはいけない
-    if (!empty($_SESSION['deleted_time']) && $_SESSION['deleted_time'] < time() - 300) {
+    if (!empty($_SESSION['deleted_time']) && $_SESSION['deleted_time'] < time() - 3000) {
         session_destroy();
         session_start();
     }
@@ -28,6 +28,8 @@ function login(){
             //クエリ実行
             $stmt->execute();
             $row=$stmt->fetch();
+
+            // echo "login:".var_dump($row)."<br>";
 
             if($row){
                 if(password_verify($_POST['password'],$row["password"])){

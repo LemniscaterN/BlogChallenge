@@ -55,20 +55,26 @@ div.innerHTML=marked(div.innerHTML);
 
 };
 
-$("#preview").click(function() {
-mdToHTML();
-});
+
+
+// $("#preview").click(function() {
+// mdToHTML();
+// });
+
+
 $('#input').keyup(
-function(){
-  checkChange(this);
-}
+  function(){
+    const ch = $('input[name="preview"]').is(':checked');
+    if(ch)checkChange(this);
+  }
 );
 
 let olddata = $("#input").val();
-
 function checkChange(e){
-  const newinput = $(e).val();
-  if(olddata!=newinput){
+  const ch = $()
+  
+  if(olddata!=$(e).val()){
+    const newinput = $(e).val();
     mdToHTML();
     olddata=newinput;
 

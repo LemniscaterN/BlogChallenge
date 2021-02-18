@@ -16,11 +16,19 @@ if(!isset($_SESSION['token']))loca();
 if(filter_input(INPUT_POST,'token') != $_SESSION['token']) loca();
 
 $articleId = filter_input(INPUT_POST,'articleId');
+
+
 $title = filter_input(INPUT_POST,'title');
 $tag = filter_input(INPUT_POST,'tag');
 $content = filter_input(INPUT_POST,'content');
 $key = filter_input(INPUT_POST,'key');
 unset($_SESSION['token']);
+
+// echo $title."<br>";
+// echo $content."<br>";
+// echo $key."<br>";
+// echo $articleId."<br>";
+
 
 if($key==="delete"){
     delete_db($articleId);
@@ -30,5 +38,5 @@ else{
     else edit_db($articleId,$title,$content,$tag);
 }
 
-// header('Location:../index.php?articleId='.$articleId); 
+header('Location:../index.php?articleId='.$articleId); 
 ?>

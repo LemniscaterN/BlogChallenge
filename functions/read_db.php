@@ -62,12 +62,12 @@ function getArticleById($id){
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
     $info1 = $db->prepare("
-      SELECT * FROM articles WHERE id=:id
+      SELECT * FROM articles WHERE id = :id
     ");
     $info1->bindValue(':id',$id, PDO::PARAM_INT);
     $info1->execute();
     $info1=$info1->fetch(PDO::FETCH_ASSOC);
-    // var_dump($info1);
+    if($info1==false)return false;
 
     $info2 = $db->prepare("
       SELECT tag.id,name FROM tag RIGHT JOIN (SELECT * FROM `tag_map` WHERE articleId=:id) AS subq ON tag.id=tagId
@@ -80,6 +80,7 @@ function getArticleById($id){
     foreach($info2 as $key => $value){
       $tags += array($value["name"] => $value["id"]);
     }
+    // echo var_dump($info1).":info2<br>";
 
     $info1+=array('tags'=>$tags);
     return $info1;

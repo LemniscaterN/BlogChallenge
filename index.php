@@ -69,12 +69,9 @@
             else if($articleId!="")echo htmlspecialchars($title);
             else echo"フジログ";
       ?>
-
     </title>
     <meta name="description" content="情報系大学生によるポートフォリオを兼ねたプログラミング関連の雑記メモ">
     <meta name="author" content="Fuji">
-
-
 
     <!-- jQuery読み込み -->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -101,11 +98,6 @@
     }
 ?> 
 
-
-
-
-
-
     <!-- オリジナル -->
     <link href="index.css" rel="stylesheet">
 
@@ -125,7 +117,7 @@
               <a class="nav-link" href="index.php" <?php if($searchWords==""&&$articleId=="")echo 'style="pointer-events: none;"'?>>Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
+              <a class="nav-link" href="profile/">Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
@@ -222,8 +214,8 @@
 
               }else{
                 echo '<h1>Home <small class="text-muted">ホーム</small></h2>';
-                echo "<p>こちらはフジさんによるフジさんの為のポートフォリオ兼ブログです</p>";
-                echo "<p>主にPHP、Jaavscript、Bootstrapを利用しています。</p>";
+                echo "<p>こちらは、「アウトプットをQiitaやnoteにするくらいなら、もういっそそれ専用の物を作ってしまえ！」との考えで出来たフジさんによるフジさんの為のブログです</p>";
+                echo "<p>PHP、Jaavscript、Bootstrapを利用して作成しました。</p>";
                 echo '<div class="d-flex justify-content-around">
                 <img src="img/php-icon.svg" height="90" alt="PHPのロゴ">
                 <img src="img/js-icon.svg"  height="90" alt="JSのロゴ">

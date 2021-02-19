@@ -157,9 +157,11 @@ function year_search_db($date,$page){
     }
 }
 
-function word_search_db($words,$page){
+function word_search_db($words,$page){    
     if(is_numeric($page)==false)$page=0;
     if($page<0)$page=0;
+
+    // echo "中身:".$words;
     
     //日付検索、タグ検索か
     $result=year_search_db($words,$page); if($result!=false)return $result;
@@ -167,16 +169,23 @@ function word_search_db($words,$page){
     $result=day_search_db($words,$page); if($result!=false)return $result;
     $result=tag_search_db($words,$page); if($result!=false)return $result;
 
-    //フリーワード検索
+    //フリーワード検索　5つまで
     $words= explode(" ", $words);//スペース区切で配列に
+    $words = array_slice($words,0,4);
+
     $keywords = [];
     foreach ($words as $keyword) {
         $keyword = addslashes((string)$keyword);//クオート類のエスエーぷ
+        if($keyword=="%")$keyword="¥%";
+        if($keyword=="_")$keyword="¥_";
         $keywords[] = 'title LIKE "%' . $keyword . '%"';
         $keywords[] = 'tags LIKE "%' . $keyword . '%"';
         $keywords[] = 'content LIKE "%' . $keyword . '%"';
     }
+    
     $keywords= implode(" OR ", $keywords);
+
+    // echo $keywords."<br>";
     $sql1 = 
     "SELECT * FROM 
         (SELECT id,title,content,date,tags FROM articles LEFT JOIN 
@@ -200,6 +209,7 @@ function word_search_db($words,$page){
         $db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
         //エラー発生で例外を投げる
         $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        // echo $sql2;
         $stmt = $db->query($sql2);
         // $stmt->execute();   
         $count = $stmt -> rowCount();

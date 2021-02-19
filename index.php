@@ -36,20 +36,38 @@
     case 1:
       if(isset($_GET['words'])){ 
          $searchWords=filter_input(INPUT_GET,'words');
-        //  echo htmlspecialchars($searchWords);
+         if(mb_strlen($searchWords)>30)$searchWords=mb_substr($searchWords,0,30);
       }
   endswitch;
 ?>
 <!DOCTYPE html>
-<html lang="ja">
+<head lang="jp" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
   <head>
     <meta charset="utf-8">
+
+    <link rel="icon" type="image/x-icon" href="img/fav.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/fav.png">    
+    
+    <meta property="og:url" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/index.php"/>
+    <meta property="og:title" content="フジログトップページ"/>
+    <meta property="og:description" content="情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="フジログ"/>
+    <meta property="og:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png"/>
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@s1870262" />
+    <meta name="twitter:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png" />
+    <meta name="twitter:description" content="情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ" />
+    
+
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>
       <?php if($searchWords!="")echo htmlspecialchars($searchWords)."の検索結果";
             else if($articleId!="")echo htmlspecialchars($title);
-            else echo"フジブログ";
+            else echo"フジログ";
       ?>
 
     </title>
@@ -65,39 +83,41 @@
     <!-- BootstrapのJS読み込み -->
     <script src="js/bootstrap.min.js"></script>
 
-    <!-- MathJax https://www.mathjax.org/#gettingstarted -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<?php
+    //検索画面でhilitされるのを防ぐ
+    if($articleId!=""){
+      echo '
+        <!-- MathJax https://www.mathjax.org/#gettingstarted -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+        <!-- Marked https://marked.js.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+        <!-- https://laboradian.com/how-to-use-highlightjs/ -->
+        <link href="js/highlight/styles/monokai.css" rel="stylesheet">
+        <script src="js/highlight/highlight.pack.js"></script>
+      ';
+    }
+?> 
 
-    <!-- Marked https://marked.js.org/ -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- https://laboradian.com/how-to-use-highlightjs/ -->
-    <link href="js/highlight/styles/monokai.css" rel="stylesheet">
-    <script src="js/highlight/highlight.pack.js"></script>
+
+
+
 
     <!-- オリジナル -->
     <link href="index.css" rel="stylesheet">
 
-    <html lang="ja" prefix="og: http://ogp.me/ns#">
-    <meta property="og:url" content="URL"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="ふじろぐトップページ"/>
-    <meta property="og:description" content="情報系大学生によるポートフォリオを兼ねたゆるいブログ"/>
-    <meta property="og:site_name" content="ふじろぐ"/>
-    <meta property="og:image" content="/img/icon.png"/>
-    <meta name="twitter:card" content="summary">
-
   </head>
   <body>
-
     <header>
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#6699CC;">
         <h1>
-          <a class="navbar-brand" href="index.php">ふじろぐ</a>
+          <a class="navbar-brand" href="index.php">フジログ</a>
         </h1>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>        
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -118,7 +138,7 @@
           </ul>
           
           <form action="index.php" method="get" class="form-inline my-2 my-lg-0" id="searchForm" >
-            <input class="form-control mr-sm-2" name="words" type="search" placeholder="Search Article" aria-label="Search" id="searchInput">
+            <input class="form-control mr-sm-2"　maxlength='20' name="words" type="search" placeholder="Search Article" aria-label="Search" id="searchInput">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
@@ -128,6 +148,7 @@
     <main class="bg-secondary">
       <div class="container bg-light">
         <div class="row">
+
           <div class="col-sm-9">
             <?php 
               if($searchWords!=""){
@@ -145,8 +166,6 @@
                       echo '<p>'.$arts[$i]["date"].' : '.htmlspecialchars($arts[$i]["tags"]).'</p>';
                       echo '<h2><a class="text-body" href="index.php?articleId='.$arts[$i]["id"].'">'.htmlspecialchars($arts[$i]["title"]).'</a></h2>';
                       echo '<p>'. htmlspecialchars(mb_substr($arts[$i]["content"],0,100)) .'</p>';
-
-                      // 
                   echo '</div>';
                 }
                 echo '</div>';
@@ -204,8 +223,15 @@
               }else{
                 echo '<h1>Home <small class="text-muted">ホーム</small></h2>';
                 echo "<p>こちらはフジさんによるフジさんの為のポートフォリオ兼ブログです</p>";
+                echo "<p>主にPHP、Jaavscript、Bootstrapを利用しています。</p>";
+                echo '<div class="d-flex justify-content-around">
+                <img src="img/php-icon.svg" height="90" alt="PHPのロゴ">
+                <img src="img/js-icon.svg"  height="90" alt="JSのロゴ">
+                <img src="img/boot-icon.svg"  height="90" alt="Bootstrapのロゴ">
+              </div><br>';
+
+                echo "<p>TeX形式の数式やMarkdown形式、コードハイライトが利用できることを特徴としています。</p>";
                 echo "<p>主に趣味の競プロ関連のメモ、プログラミング関連で詰まった箇所をまとめる予定です。</p>";
-                echo "<p>Markdown記法、TeX形式に慣れる目的も兼ねています。</p>";
                 echo "<p><br>検索方法忘備録</p>
                 <ul>
                   <li>キーワード検索　スペース区切りでOR検索<br> 例:「C++ ダイクストラ」</li>
@@ -214,9 +240,19 @@
                   <li>月検索　「西暦4桁-月2桁」で検索<br> 例:「2021-02」</li>
                   <li>日検索　「西暦4桁-月2桁-日2桁」で検索<br> 例:「2021-02-14」</li>
                 </ul>";
+
+                
+
+                
               }
             ?>
+
+
+
+            
+          <!-- ここまでcol-9の左エリア -->
           </div>
+
 
           <div class="col-sm-3 border-left">
 
@@ -282,32 +318,39 @@ $('#searchForm').submit(function() {
   if(!$("#searchInput").val().trim())return false;
 });
 
-$(document).ready(function(){
-  MathJax = {
-      startup: {
-        typeset: true
-      },
-      tex: {
-        inlineMath: [ ['$','$']],
-        displayMath: [ ['$$','$$']],
-        processEscapes: true
-      },
-      options: {
-        ignoreHtmlClass: 'tex2jax_ignore',
-        processHtmlClass: 'tex2jax_process'
-      }
-  };
 
-  document.querySelectorAll('pre code').forEach((block) => {
-    hljs.highlightBlock(block);
-  });
+<?php 
+if($articleId!=""){
+  echo "$(document).ready(function(){
+    MathJax = {
+        startup: {
+          typeset: true
+        },
+        tex: {
+          inlineMath: [ ['$','$']],
+          displayMath: [ ['$$','$$']],
+          processEscapes: true
+        },
+        options: {
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'tex2jax_process'
+        }
+    };
+  
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+  
+    document.querySelectorAll('article').forEach((block) => {    
+        let html = marked(block.innerHTML);
+        block.innerHTML=html;
+    });
+  });   
+  ";
+}
+?>
 
-  document.querySelectorAll('article').forEach((block) => {    
-      // console.log("OK:"+block);
-      let html = marked(block.innerHTML);
-      block.innerHTML=html;
-  });
-});
+
 
 
 $('#searchForm').submit(function() {

@@ -61,7 +61,7 @@
               }
             ?>
           </ul>
-          <form action="index.php" method="get" class="form-inline my-2 my-lg-0" id="searchForm">
+          <form action="../index.php" method="get" class="form-inline my-2 my-lg-0" id="searchForm">
             <input class="form-control mr-sm-2"　maxlength='20' name="words" type="search" placeholder="Search Article" aria-label="Search" id="searchInput">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
           </form>
@@ -94,41 +94,42 @@
               <div class="row">
                 <div class="col-12"><h1 class="text-center my-font1">Main Skills</h1></div>
               </div>
-              <div class="row justify-content-around">
-                <div class="col-3 border rounded p-2">
+
+              <div class="row justify-content-between">
+                <div class="col-4 border rounded p-2">
                   <img style="display: block; margin: auto; max-height:90px;" class="img-fluid text-center" src="../img/php-icon.svg" alt="PHP">
                   <h5 class="text-center">PHP ★★★☆☆</h5>
                   <p>友人とWebサービスを開発した際に学習し、こちらのブログもサーバーサイドは全てPHPで作成しています。が、フレームワークの利用経験がありません。</p>
                 </div>
 
-                <div class="col-3 border rounded p-2">
+                <div class="col-4 border rounded p-2">
                   <img style="display: block; margin: auto; max-height:90px;" class="img-fluid" height="90" src="../img/cpp-icon.svg" alt="C++">
                     <h5 class="text-center">C++ ★★★☆☆</h5>
                     <p>趣味の競プロで主に利用しており、利用頻度が最も高い言語です。競プロで利用しないライブラリや知識にはかなり疎いです。</p>
                 </div>
 
-                <div class="col-3 border rounded p-2">
+                <div class="col-4 border rounded p-2">
                     <img style="display: block; margin: auto; max-height:90px;" class="img-fluid" height="90" src="../img/unity-icon.svg" alt="Unity">
                     <h5 class="text-center">Unity ★★★☆☆</h5>
                     <p>自由制作授業でのルービックキューブ解法出力アプリ、友人とのゲーム開発のほか、現在個人制作を検討しています。</p>
                 </div>      
               </div>
               
-              <div class="row mt-4 justify-content-around">
+              <div class="row justify-content-between">
                 <div class="col-12"><h1 class="text-center my-font1">Sub Skills</h1></div>
-                <div class="col-3 border rounded p-2">
+                <div class="col-4 border rounded p-2">
                   <img style="display: block; margin: auto; max-height:90px;" class="img-fluid text-center" src="../img/python-icon.svg" alt="Python">
                   <h5 class="text-center">Python ★★★☆☆</h5>
                   <p>DSとKaggle興味があり、関連ライブラリと基本構文を一通り学習しました。利用頻度が低く、あやふやな知識が多くなっています。</p>
                 </div>
 
-                <div class="col-3 border rounded p-2">
+                <div class="col-4 border rounded p-2">
                   <img style="display: block; margin: auto; max-height:90px;" class="img-fluid" height="90" src="../img/js-icon.svg" alt="C++">
                     <h5 class="text-center">Javascript ★★★☆☆</h5>
                     <p>基本的な構文は一通り学習しました。開発インターンにてNode.jsの利用経験があります。</p>
                 </div>
 
-                <div class="col-3 border rounded p-2">
+                <div class="col-4 border rounded p-2">
                   <img style="display: block; margin: auto; max-height:90px;" class="img-fluid text-center" src="../img/html-icon.svg" alt="HTML">
                   <h5 class="text-center">HTML ★★☆☆☆</h5>
                   <p>SEOは未学習です。適切なタグを利用できているのか不安です。</p>
@@ -136,19 +137,19 @@
               </div>
 
               <div class="row justify-content-around mt-2">
-                <div class="col-3 border rounded p-2">
+                <div class="col-4 border rounded p-2">
                     <img style="display: block; margin: auto; max-height:90px;" class="img-fluid" height="90" src="../img/java-icon.svg" alt="Java">
                     <h5 class="text-center">Java ★☆☆☆☆</h5>
                     <p>大学のオブジェクト指向の講義に利用しました。基礎構文が怪しいレベルです。</p>
                 </div> 
                 
-                <div class="col-3 border rounded p-2">
+                <div class="col-4 border rounded p-2">
                   <img style="display: block; margin: auto; max-height:90px;" class="img-fluid" height="90" src="../img/css-icon.svg" alt="CSS">
                     <h5 class="text-center">CSS ★★☆☆☆</h5>
                     <p>基本的な書き方は一通り学習しましたが、思ったような配置やデザインにすることがなかなか出来ません。</p>
                 </div>
 
-                <div class="col-3 border rounded p-2">
+                <div class="col-4 border rounded p-2">
                     <img style="display: block; margin: auto; max-height:90px;" class="img-fluid" height="90" src="../img/r-icon.svg" alt="R">
                     <h5 class="text-center">R ★☆☆☆☆</h5>
                     <p>大学の画像処理の講義で利用しました。正直なところ、Rを利用する強みが分かりません。。</p>
@@ -223,7 +224,7 @@
                 <h3>タグ</h3>
                 <ul class="text-left">
                   <?php
-                    getPopularTags();
+                    getPopularTags('../index.php');
                   ?>  
                 </ul>
               </div>
@@ -234,7 +235,7 @@
                 <h3>アーカイブ</h3>
                 <ul class="text-left">
                   <?php
-                      getEveryOtherMonthArticles();
+                      getEveryOtherMonthArticles('../index.php');
                     ?>  
                 </ul>
               </div>
@@ -257,10 +258,10 @@
     <footer class="text-center" style="background-color:#6699CC;">© 2022 Fuji
       <?php
           if (isset($_SESSION['id'])){
-            echo '<a href="./login/logout.php">ログアウト</a>';
+            echo '<a href="../login/logout.php">ログアウト</a>';
             echo '<input type="hidden" name="token" value="token">';
           }else{
-            echo '<a href="./login/index.php">ログイン</a>';
+            echo '<a href="../login/index.php">ログイン</a>';
           }
       ?>
     </footer>

@@ -2,7 +2,7 @@
 //https://gray-code.com/php/getting-data-by-using-pdo/
 
 
-function getPopularTags(){
+function getPopularTags($to){
   try {
     $db= new PDO(call_dsn(), call_user(),call_password());
     //SQLインジェクション対策
@@ -14,7 +14,7 @@ function getPopularTags(){
       SELECT name,Count(*)  AS eachCnt FROM (SELECT tagId,tag.name FROM tag_map JOIN tag ON tag_map.tagId = tag.id) AS Subeuery　 GROUP BY tagId ORDER BY `eachCnt`  DESC LIMIT 15
     ");
     foreach( $res as $row ) {
-		    echo '<li><a href="index.php?words='.urlencode('#'.$row["name"]).'">'.htmlspecialchars($row["name"])."($row[eachCnt])".'</a></li>';        
+		    echo '<li><a href="'.$to.'?words='.urlencode('#'.$row["name"]).'">'.htmlspecialchars($row["name"])."($row[eachCnt])".'</a></li>';        
 	  }
     return true;
   }catch (PDOExcption $e) {
@@ -24,7 +24,7 @@ function getPopularTags(){
   }
 }
 
-function getEveryOtherMonthArticles(){
+function getEveryOtherMonthArticles($to){
   try {
     $db= new PDO(call_dsn(), call_user(),call_password());
     //SQLインジェクション対策
@@ -42,7 +42,7 @@ function getEveryOtherMonthArticles(){
         ORDER BY date DESC
     ");
     foreach( $res as $row ) {
-		    echo '<li><a href="?words='.$row["date"].'">'."$row[date]($row[count])</a></li>";        
+		    echo '<li><a href="'.$to.'?words='.$row["date"].'">'."$row[date]($row[count])</a></li>";        
 	  }
     return true;
   }catch (PDOExcption $e) {

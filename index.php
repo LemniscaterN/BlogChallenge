@@ -253,7 +253,7 @@
                 <h3>タグ</h3>
                 <ul class="text-left">
                   <?php
-                    getPopularTags();
+                    getPopularTags('index.php');
                   ?>  
                 </ul>
               </div>
@@ -264,7 +264,7 @@
                 <h3>アーカイブ</h3>
                 <ul class="text-left">
                   <?php
-                      getEveryOtherMonthArticles();
+                      getEveryOtherMonthArticles('index.php');
                     ?>  
                 </ul>
               </div>

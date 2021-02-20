@@ -69,7 +69,7 @@
             </li>
             <?php
               if (isset($_SESSION['id'])){
-                echo '<li class="nav-item"><a class="nav-link" href="./edit/">Post</a></li>';
+                echo '<li class="nav-item"><a class="nav-link" href="../edit/">Post</a></li>';
               }
             ?>
           </ul>

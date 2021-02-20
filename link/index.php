@@ -28,9 +28,8 @@
     <!-- BootstrapのJS読み込み -->
     <script src="../js/bootstrap.min.js"></script>
 
-    <!-- CSS読み込み -->
-    <link href="profile.css" rel="stylesheet">
-
+    <!-- font用class読み込み -->
+    <link href="../font.css" rel="stylesheet">
     <!-- ロゴ様フォント -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -51,7 +50,7 @@
               <a class="nav-link" href="../index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
+              <a class="nav-link" href="../profile/">Profile</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">Link<span class="sr-only">(current)</span></a>
@@ -75,10 +74,9 @@
         <div class="row">
 
           <div class="col-sm-9">    
-            
-
-        
-            
+            <h1 class="text-center my-font1">Link</h1>
+            <p>製作中。</p>
+    
           <!-- ここまでcol-9の左エリア -->
           </div>
 

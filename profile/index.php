@@ -40,9 +40,8 @@
     <!-- BootstrapのJS読み込み -->
     <script src="../js/bootstrap.min.js"></script>
 
-    <!-- CSS読み込み -->
-    <link href="profile.css" rel="stylesheet">
-
+    <!-- font用class読み込み -->
+    <link href="../font.css" rel="stylesheet">
     <!-- ロゴ様フォント -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -66,7 +65,7 @@
               <a class="nav-link" href="#">Profile<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="../link/">Link</a>
             </li>
             <?php
               if (isset($_SESSION['id'])){
@@ -75,7 +74,7 @@
             ?>
           </ul>
           <form action="../index.php" method="get" class="form-inline my-2 my-lg-0" id="searchForm">
-            <input class="form-control mr-sm-2"　maxlength='20' name="words" type="search" placeholder="Search Article" aria-label="Search" id="searchInput">
+            <input class="form-control mr-sm-2" maxlength='20' name="words" type="search" placeholder="Search Article" aria-label="Search" id="searchInput">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
@@ -87,6 +86,8 @@
         <div class="row">
 
           <div class="col-sm-9">    
+
+            <h1 class="text-center my-font1">Profile</h1>
             
             <div class="mt-2 d-flex justify-content-around">
               <!-- <img class="p-3" src="../img/php-icon.svg" height="90" alt="prifile-img"> -->

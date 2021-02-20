@@ -99,6 +99,12 @@
     <!-- BootstrapのJS読み込み -->
     <script src="js/bootstrap.min.js"></script>
 
+     <!-- font用class読み込み -->
+    <link href="font.css" rel="stylesheet">
+    <!-- ロゴ様フォント -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
 <?php
     //検索画面でhilitされるのを防ぐ
     if($articleId!=""){
@@ -139,7 +145,7 @@
               <a class="nav-link" href="profile/">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="link/">Link</a>
             </li>
             <?php
               if (isset($_SESSION['id'])){
@@ -232,8 +238,8 @@
                 echo "<article>".$content."</article>";
 
               }else{
-                echo '<h1>Home <small class="text-muted">ホーム</small></h2>';
-                echo "<p>こちらは、「アウトプットをQiitaやnoteにするくらいなら、もういっそそれ専用の物を作ってしまえ！」との考えで出来たフジさんによるフジさんの為のブログです</p>";
+                echo '<h1 class="text-center my-font1">Home</h1>';
+                echo "<p>「既存のサイトにアウトプットするくらいなら、いっそ自分でアウトプット用のサイトを作れば作る過程もアウトプットになって一石二鳥なのでは？」<br>との考えで出来たフジさんによるフジさんの為のブログです</p>";
                 echo "<p>PHP、Jaavscript、Bootstrapを利用して作成しました。</p>";
                 echo '<div class="d-flex justify-content-around">
                 <img src="img/php-icon.svg" height="90" alt="PHPのロゴ">

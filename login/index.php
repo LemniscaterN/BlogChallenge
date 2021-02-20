@@ -83,7 +83,7 @@
               <a class="nav-link" href="../profile/">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="../link/">Link</a>
             </li>
           </ul>
           

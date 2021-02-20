@@ -39,7 +39,12 @@
          if(mb_strlen($searchWords)>30)$searchWords=mb_substr($searchWords,0,30);
       }
   endswitch;
+
+  // echo 'http://localhost:8080/'.$_SERVER['REQUEST_URI'];
+
+  
 ?>
+
 <!DOCTYPE html>
 <head lang="jp" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
   <head>
@@ -48,9 +53,22 @@
     <link rel="icon" type="image/x-icon" href="img/fav.png">
     <link rel="apple-touch-icon" sizes="120x120" href="img/fav.png">    
     
-    <meta property="og:url" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/index.php"/>
-    <meta property="og:title" content="フジログトップページ"/>
-    <meta property="og:description" content="情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ"/>
+    <meta property="og:url" content="<?php 
+        echo 'http://fujiweb08.php.xdomain.jp'.$_SERVER['REQUEST_URI'];
+      ?>" />
+
+    <!-- このページの名前 -->
+    <meta property="og:title" content="<?php 
+        if($articleId!="")echo htmlspecialchars($title).'-フジログ';
+        else if(($searchWords!=""))echo 'フジログ検索「'.htmlspecialchars($searchWords).'」';
+        else echo "フジログホームページ";
+      ?>" />
+
+    <meta property="og:description" content="<?php
+        if($articleId!="")echo htmlspecialchars(mb_substr($content,0,30).(mb_strlen($content)>30?'...':''));
+        else echo "情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ";
+      ?>"
+    />
     <meta property="og:type" content="website"/>
     <meta property="og:site_name" content="フジログ"/>
     <meta property="og:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png"/>
@@ -58,18 +76,19 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@s1870262" />
     <meta name="twitter:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png" />
-    <meta name="twitter:description" content="情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ" />
+    <meta name="twitter:description" content="<?php
+        if($articleId!="")echo htmlspecialchars(mb_substr($content,0,30).(mb_strlen($content)>30?'...':''));
+        else echo "情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ";
+      ?>"
+    />
     
-
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>
-      <?php if($searchWords!="")echo htmlspecialchars($searchWords)."の検索結果";
+    <title><?php if($searchWords!="")echo htmlspecialchars($searchWords)."の検索結果";
             else if($articleId!="")echo htmlspecialchars($title);
             else echo"フジログ";
-      ?>
-    </title>
+      ?></title>
     <meta name="description" content="情報系大学生によるポートフォリオを兼ねたプログラミング関連の雑記メモ">
     <meta name="author" content="Fuji">
 

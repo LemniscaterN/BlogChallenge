@@ -14,6 +14,19 @@
     <link rel="icon" type="image/x-icon" href="../img/fav.png">
     <link rel="apple-touch-icon"  href="../img/fav.png">    
 
+    <meta property="og:url" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/profile/index.php"/>
+    <meta property="og:title" content="フジログプロフィール"/>
+    <meta property="og:description" content="フジログ製作者フジのプロフィール"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="フジログ"/>
+    <meta property="og:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png"/>
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@s1870262" />
+    <meta name="twitter:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png" />
+    <meta name="twitter:description" content="フジログ製作者フジのプロフィール" />
+
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>フジログプロフィール</title>

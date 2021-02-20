@@ -60,6 +60,7 @@ html,body{
     border-radius: 100%;
     border: 2px solid #aaa;
     background-size: cover;
+    background-color: silver;
 }
 
 .form-box input{
@@ -139,3 +140,81 @@ html,body{
 .login-container{
     z-index: 3;
 }
+
+/*クローバーの設定*/
+#main-lap{
+  display: flex;
+  flex-wrap: wrap;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto; 
+  margin-top: 17px;
+}
+
+
+.clover{
+  width: 30px;
+  height: 30px;
+}
+
+.clover-left-top{
+  border-radius: 50% 50% 0 50%;
+  background: #44f;
+  background: -moz-linear-gradient(bottom right, #ddf, #44f);
+  background: -webkit-linear-gradient(bottom right, #ddf, #44f);
+  background-image:linear-gradient(to bottom right, #ddf, #44f);
+}
+
+.clover-right-top{
+  border-radius: 50% 50% 50% 0%;
+  background: #f09;
+  background: -moz-linear-gradient(top right, #fdb, #f09);
+  background: -webkit-linear-gradient(top right, #fdb, #f09);
+  background-image:linear-gradient(to bottom left, #fdb, #f09);
+}
+
+.clover-right-buttom{
+  border-radius: 0% 50% 50% 50%;
+  background: #ff0;
+  background: -moz-linear-gradient(top right, #ffd, #ff0);
+  background: -webkit-linear-gradient(top right, #ffd, #ff0);
+  background-image:linear-gradient(to top left, #ffd, #ff0);
+}
+
+.clover-left-buttom{
+  border-radius: 50% 0% 50% 50%;
+  background: #0f9;
+  background: -moz-linear-gradient(top right, #dfb, #0f9);
+  background: -webkit-linear-gradient(top right, #dfb, #0f9);
+  background-image:linear-gradient(to top right, #dfb, #0f9);
+}
+
+.load{
+  -webkit-animation: spin 5.5s linear infinite;
+  -moz-animation: spin 5.5s linear infinite;
+  -ms-animation: spin 5.5s linear infinite;
+  -o-animation: spin 5.5s linear infinite;
+  animation: spin 5.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+0% {-webkit-transform: rotate(0deg);}
+100% {-webkit-transform: rotate(360deg);}
+}
+@-moz-keyframes spin {
+0% {-moz-transform: rotate(0deg);}
+100% {-moz-transform: rotate(360deg);}
+}
+@-ms-keyframes spin {
+0% {-ms-transform: rotate(0deg);}
+100% {-ms-transform: rotate(360deg);}
+}
+@-o-keyframes spin {
+0% {-o-transform: rotate(0deg);}
+100% {-o-transform: rotate(360deg);}
+}
+@keyframes spin {
+0% {transform: rotate(0deg);}
+100% {transform: rotate(360deg);}
+}
+

@@ -43,6 +43,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/x-icon" href="../img/fav.png">
+    <link rel="apple-touch-icon"  href="../img/fav.png">   
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>記事の編集画面</title>
     <meta name="description" content="情報系大学生によるポートフォリオを兼ねたプログラミング関連の雑記メモ">

@@ -48,7 +48,7 @@ function login(){
                 //入力に誤りがある
                 //もう一度フォームを表示
                 // echo "失敗";
-                header('Location:login.php'); 
+                header('Location:index.php'); 
             }
         }catch(PDOExcption $e){
             die('エラー:'.$e->getMessage());

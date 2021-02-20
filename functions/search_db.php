@@ -22,7 +22,7 @@ function day_search_db($date,$page){
                     (SELECT tag_map.articleId , tag.name FROM tag_map JOIN tag ON tag_map.tagId = tag.id) AS subq 
                 GROUP BY articleId) AS subq2 
             ON articles.id = articleId) as subq3 
-        WHERE date="'.$date.'" LIMIT '.($page*10).',10';
+        WHERE date="'.$date.'" ORDER BY date DESC LIMIT '.($page*10).',10';
     }
     try {
         $db= new PDO(call_dsn(), call_user(),call_password());
@@ -70,7 +70,7 @@ function month_search_db($date,$page){
                     (SELECT tag_map.articleId , tag.name FROM tag_map JOIN tag ON tag_map.tagId = tag.id) AS subq 
                 GROUP BY articleId) AS subq2 
             ON articles.id = articleId) as subq3 
-        WHERE date BETWEEN "'.$date.'-00'.'" AND "'.$date.'-31" '.' LIMIT '.($page*10).',10';
+        WHERE date BETWEEN "'.$date.'-00'.'" AND "'.$date.'-31" '.' ORDER BY date DESC LIMIT '.($page*10).',10';
     }
     try {
         $db= new PDO(call_dsn(), call_user(),call_password());
@@ -126,7 +126,7 @@ function year_search_db($date,$page){
                     (SELECT tag_map.articleId , tag.name FROM tag_map JOIN tag ON tag_map.tagId = tag.id) AS subq 
                 GROUP BY articleId) AS subq2 
             ON articles.id = articleId) as subq3 
-        WHERE date BETWEEN "'.$date.'-01-01'.'" AND "'.$date.'-12-31" '.' LIMIT '.($page*10).',10';
+        WHERE date BETWEEN "'.$date.'-01-01'.'" AND "'.$date.'-12-31" '.' ORDER BY date DESC LIMIT '.($page*10).',10';
     }
     try {
         $db= new PDO(call_dsn(), call_user(),call_password());

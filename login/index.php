@@ -19,6 +19,24 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
+
+    <link rel="icon" type="image/x-icon" href="../img/fav.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../img/fav.png">    
+    
+    <!-- タイトルに飛ばす-->
+    <meta property="og:url" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/index.php" />
+    <meta property="og:title" content="フジログログインページ" />
+    <meta property="og:description" content="ふじ専用ログインページ" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="フジログ"/>
+    <meta property="og:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@s1870262" />
+    <meta name="twitter:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png" />
+    <meta name="twitter:description" content="情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ" />
+
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>フジログ　ログインページ</title>
@@ -58,8 +76,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php" style="pointer-events: none;">Home<span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.php">Home</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../profile/">Profile</a>
@@ -84,7 +102,15 @@
             <div class="container">
             <div class="login-container">
               
-              <div class="avatar"></div>
+              <div class="avatar">
+                <!--クローバー-->
+                <div id="main-lap" class="load">
+                  <div class="clover-left-top clover"></div>
+                  <div class="clover-right-top clover"></div>
+                  <div class="clover-left-buttom clover"></div>
+                  <div class="clover-right-buttom clover"></div>
+                </div>
+              </div>
               <div class="form-box">
                   <form action="index.php" method="post" id="loginform">
                       <div id="output"></div>

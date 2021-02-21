@@ -176,6 +176,7 @@ function word_search_db($words,$page){
     $keywords = [];
     foreach ($words as $keyword) {
         $keyword = addslashes((string)$keyword);//クオート類のエスエーぷ
+        if($keyword=="")continue;
         if($keyword=="%")$keyword="¥%";
         if($keyword=="_")$keyword="¥_";
         $keywords[] = 'title LIKE "%' . $keyword . '%"';

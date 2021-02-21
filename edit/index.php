@@ -188,4 +188,46 @@ $('.post-btn').click(function(){
   if(ok)$('#post').submit();
 });
 
+
+//thanks https://deecode.net/?p=1104
+function onTextAreaKeyDown(event, object) {
+    // キーコードと入力された文字列
+    var keyCode = event.keyCode;
+    var keyVal = event.key;
+
+    // カーソル位置
+    var cursorPosition = object.selectionStart;
+    // カーソルの左右の文字列値
+    var leftString = object.value.substr(0, cursorPosition);
+    var rightString = object.value.substr(cursorPosition, object.value.length);
+
+    // タブキーの場合
+    if(keyCode === 9) {
+        event.preventDefault();  // 元の挙動を止める
+        // textareaの値をカーソル左の文字列 + タブスペース + カーソル右の文字列にする
+        object.value = leftString + "\t" + rightString;
+        // カーソル位置をタブスペースの後ろにする
+        object.selectionEnd = cursorPosition + 1;
+    }
+    // かぎかっこの場合の自動補完
+    else if(keyVal === "{") {
+        event.preventDefault();  // 元の挙動を止める
+        // textareaの値をカーソル左の文字列 + {} + カーソル右の文字列にする
+        object.value = leftString + "{}" + rightString;
+        // カーソル位置をタブスペースの後ろにする
+        object.selectionEnd = cursorPosition + 1;
+    }
+    // かっこの場合の自動補完
+    else if(keyVal === "[") {
+        event.preventDefault();  // 元の挙動を止める
+        // textareaの値をカーソル左の文字列 + [] + カーソル右の文字列にする
+        object.value = leftString + "[]" + rightString;
+        // カーソル位置をタブスペースの後ろにする
+        object.selectionEnd = cursorPosition + 1;
+    }
+}
+
+// テキストエリアのキー入力時の関数を設定
+document.getElementById("input").onkeydown = function(event) {onTextAreaKeyDown(event, this);}
+
 </script>

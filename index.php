@@ -3,6 +3,7 @@
   require "functions/read_db.php";
   require "functions/write_db.php";
   require "functions/search_db.php";
+  require "functions/hs.php";
   require "login/loginCheck.php";
 
 

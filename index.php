@@ -5,6 +5,7 @@
   require "functions/search_db.php";
   require "login/loginCheck.php";
 
+
   my_session_start();
   $searchWords="";
   
@@ -36,7 +37,7 @@
     case 1:
       if(isset($_GET['words'])){ 
          $searchWords=filter_input(INPUT_GET,'words');
-         if(mb_strlen($searchWords)>30)$searchWords=mb_substr($searchWords,0,30);
+         if(mb_strlen($searchWords)>30)$searchWords=mb_substr($searchWords,0,40);
       }
   endswitch;
 
@@ -59,13 +60,13 @@
 
     <!-- このページの名前 -->
     <meta property="og:title" content="<?php 
-        if($articleId!="")echo htmlspecialchars($title).'-フジログ';
-        else if(($searchWords!=""))echo 'フジログ検索「'.htmlspecialchars($searchWords).'」';
+        if($articleId!="")echo hs($title).'-フジログ';
+        else if(($searchWords!=""))echo 'フジログ検索「'.hs($searchWords).'」';
         else echo "フジログホームページ";
       ?>" />
 
     <meta property="og:description" content="<?php
-        if($articleId!="")echo htmlspecialchars(mb_substr($content,0,30).(mb_strlen($content)>30?'...':''));
+        if($articleId!="")echo hs(mb_substr($content,0,30).(mb_strlen($content)>30?'...':''));
         else echo "情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ";
       ?>"
     />
@@ -77,7 +78,7 @@
     <meta name="twitter:site" content="@s1870262" />
     <meta name="twitter:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png" />
     <meta name="twitter:description" content="<?php
-        if($articleId!="")echo htmlspecialchars(mb_substr($content,0,30).(mb_strlen($content)>30?'...':''));
+        if($articleId!="")echo hs(mb_substr($content,0,30).(mb_strlen($content)>30?'...':''));
         else echo "情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ";
       ?>"
     />
@@ -85,8 +86,8 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title><?php if($searchWords!="")echo htmlspecialchars($searchWords)."の検索結果";
-            else if($articleId!="")echo htmlspecialchars($title);
+    <title><?php if($searchWords!="")echo hs($searchWords)."の検索結果";
+            else if($articleId!="")echo hs($title);
             else echo"フジログ";
       ?></title>
     <meta name="description" content="情報系大学生によるポートフォリオを兼ねたプログラミング関連の雑記メモ">
@@ -122,9 +123,6 @@
       ';
     }
 ?> 
-
-    <!-- オリジナル -->
-    <link href="index.css" rel="stylesheet">
 
   </head>
   <body>
@@ -166,23 +164,30 @@
       <div class="container bg-light">
         <div class="row">
 
+              
+
           <div class="col-sm-9">
             <?php 
               if($searchWords!=""){
                 $pageURL='./?words='.urlencode($searchWords).'&page=';
 
                 $arts=word_search_db($searchWords,$page);
-                echo "<h1>「".htmlspecialchars($searchWords)."」の検索結果:".$arts["count"]."件</h1>";
+                echo "<h1>「".hs($searchWords)."」の検索結果:".$arts["count"]."件</h1>";
 
                 $maxpage=(int)(($arts["count"]+9)/10-1);
                 echo (min($page*10+1,($page*10+count($arts)-1)))."件目から".($page*10+count($arts)-1)."件目を表示";
 
+                if (isset($_SESSION['id']) && strcmp(mb_substr($searchWords,0,1), '#')==0)
+                {
+                  echo '<a class="ml-2" href="edit/?tag='.urlencode(mb_substr($searchWords, -mb_strlen($searchWords)+1)).'">「'.hs($searchWords).'」で記事を書く'.'</a>';
+                }
+
                 echo '<div class="list-group">';
                 for($i=0;$i<count($arts)-1;$i++){
                   echo '<div class="list-group-item list-group-item-action deconone">';
-                      echo '<p>'.$arts[$i]["date"].' : '.htmlspecialchars($arts[$i]["tags"]).'</p>';
-                      echo '<h2><a class="text-body" href="index.php?articleId='.$arts[$i]["id"].'">'.htmlspecialchars($arts[$i]["title"]).'</a></h2>';
-                      echo '<p>'. htmlspecialchars(mb_substr($arts[$i]["content"],0,100)) .'</p>';
+                      echo '<p>'.$arts[$i]["date"].' : '.hs($arts[$i]["tags"]).'</p>';
+                      echo '<h2><a class="text-body" href="index.php?articleId='.$arts[$i]["id"].'">'.hs($arts[$i]["title"]).'</a></h2>';
+                      echo '<p>'. hs(mb_substr($arts[$i]["content"],0,100)) .'</p>';
                   echo '</div>';
                 }
                 echo '</div>';
@@ -217,7 +222,7 @@
                 ';
               }
               else if($articleId!=""){           
-                echo '<h1 style="display:inline;">'.htmlspecialchars($title)."</h1>";
+                echo '<h1 style="display:inline;">'.hs($title)."</h1>";
                 echo '<p style="display:inline;">'.$date."</p>";
 
                 if (isset($_SESSION['id']))echo '&nbsp;<a href="./edit/?articleId='.$articleId.'" style="display:inline;">編集する</a>';
@@ -225,7 +230,7 @@
 
                 //タグ
                 foreach($tags as $name => $tagId){
-                  echo '<a href="index.php?words='.urlencode("#".$name).'" style="display:inline;">'.$name." </a>";
+                  echo '<a href="index.php?words='.urlencode("#".$name).'" style="display:inline;">'.hs($name)." </a>";
                 }
                 
                 //<,>をエスケープ
@@ -240,7 +245,7 @@
               }else{
                 echo '<h1 class="text-center my-font1">Home</h1>';
                 echo "<p>「既存のサイトにアウトプットするくらいなら、いっそ自分でアウトプット用のサイトを作れば作る過程もアウトプットになって一石二鳥なのでは？」<br>との考えで出来たフジさんによるフジさんの為のブログです</p>";
-                echo "<p>PHP、Jaavscript、Bootstrapを利用して作成しました。</p>";
+                echo "<p>PHP、Javascript、Bootstrapを利用して作成しました。</p>";
                 echo '<div class="d-flex justify-content-around">
                 <img src="img/php-icon.svg" height="90" alt="PHPのロゴ">
                 <img src="img/js-icon.svg"  height="90" alt="JSのロゴ">
@@ -327,6 +332,7 @@
 
   </body>
 </html>
+
 
 
 <script>

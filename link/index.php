@@ -75,7 +75,26 @@
 
           <div class="col-sm-9">    
             <h1 class="text-center my-font1">Link</h1>
-            <p>製作中。</p>
+            <ul>
+              <li>
+                <h3><a href="http://timecapsule1.php.xdomain.jp/TimeCapsule/">TimeCapsuleService</a> 2020/2</h3>
+                <p>友人と作成した初めてのWebアプリケーション。未来へメッセージをお届けします。サーバーサイド全般を担当しました。</p>
+              </li>
+
+              <li>
+                  <h3><a href="https://lemniscatern.github.io/minigames/">短期単発ネタ開発シリーズ</a> 2020/6-</h3>
+                  <ul>
+                    <li>
+                      <p><a href="https://lemniscatern.github.io/minigames/string/">String(ストリング)</a> 2020/6</p>
+                      <p>オンライン飲み会を楽しむ為のミニゲーム。推奨人数3人以上、1ゲーム10分程度</p>
+                    </li>
+                    <li>
+                      <p><a href="#">悠久を生きし者共</a> 2021/3(予定)</p>
+                      <p>いつまでも若くありたいあなたへ。</p>
+                    </li>
+                  </ul>                  
+              </li>
+            </ul>
     
           <!-- ここまでcol-9の左エリア -->
           </div>

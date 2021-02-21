@@ -3,7 +3,9 @@
   require "../functions/read_db.php";
   require "../functions/write_db.php";
   require "../functions/search_db.php";
+  require "../functions/hs.php";
   require "../login/loginCheck.php";
+  
 
   my_session_start();
 
@@ -18,7 +20,11 @@
   $title="";
   $date="";
   $content="";
-  $tags=[];
+  $tags=array();
+  if(filter_input(INPUT_GET,"tag")!=null){
+    $tags=array($_GET['tag']=>0);
+  }
+  
   $page=filter_input(INPUT_GET,"page")==null?0:filter_input(INPUT_GET,"page");
 
   
@@ -111,10 +117,10 @@
         <form action="edit_comp.php" method="post" id="post" >
 
           <div class="row justify-content-around">
-              <input class="col-11" type="text" name="title" value="<?php echo htmlspecialchars($title);?>">
+              <input class="col-11" type="text" name="title" value="<?php echo hs($title);?>">
               <input class="col-11" type="text" name="tag" rows="20"  value="<?php
                   foreach($tags as $id=>$name){
-                    echo htmlspecialchars($id).",";
+                    echo hs($id).",";
                   }
                 ?>">
           </div>

@@ -5,6 +5,7 @@ function my_session_start() {
     // 古過ぎるセッションIDを使うことを許してはいけない
     if (!empty($_SESSION['deleted_time']) && $_SESSION['deleted_time'] < time() - 3000) {
         session_destroy();
+        ini_set('session.use_strict_mode', 0);
         session_start();
     }
 }
@@ -35,11 +36,13 @@ function login(){
                 if(password_verify($_POST['password'],$row["password"])){
                     
                     //セッションIDの再作成 セッションハイジャック対策
+                    
                     session_regenerate_id(true);
+                    
 
                     $_SESSION['id']=$row['id'];
                     $_SESSION['deleted_time'] = time();
-                    ini_set('session.use_strict_mode', 0);
+                    
 
                     return true;
                 }

@@ -1,12 +1,15 @@
-
-
 window.MathJax = {
-  // startup: {
-  //   typeset: false
-  // },
+  startup: {
+    pageReady: () => {
+      return MathJax.startup.defaultPageReady().then(() => {
+        console.log('MathJax initial typesetting complete');
+        mdToHTML();
+      });
+    }
+  },
   tex: {
-    inlineMath: [ ['$','$'], ["\(","\)"] ],
-    displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+    inlineMath: [ ['$','$'] ],//["\(","\)"]
+    displayMath: [ ['$$','$$'] ],// ["\\(","\\)"]
     processEscapes: true
   },
   options: {
@@ -27,39 +30,32 @@ marked.setOptions({
   smartypants: false
 });
 
+
+
 function mdToHTML(){
-let text = $("#input").val();
-  
-let result = new RegExp(/<pre><code>([\S\s]+?)<\/pre><\/code>/igm);
+  text = $("#input").val();
 
-let resultArray=text.split(result);
+  let wraped = text.split(/<pre><code>|<\/pre><\/code>/)
+  .reduce(function(sum, str, i){
+    return i % 2 === 0 ?
+           sum + str :
+           sum + "<pre><code>" + escapeHTML(str) + "</pre></code>";
+  }, "");
+  let html = marked(wraped);
 
-const len = resultArray.length
-// console.log("***"+len);
-if(len>=3){
-  for (let i = 1; i < len; i+=2) {
-    // console.log("loop:"+resultArray[i]);
-    text=text.replace(resultArray[i],escapeHTML(resultArray[i]));
+  const div = document.getElementById("output");
+  div.innerHTML = html;
+
+  MathJax.typesetPromise();
+
+  let nodeList = document.getElementById("output").querySelectorAll('pre code');
+  if(nodeList.length>=1){
+    nodeList.forEach((block) => {          
+      hljs.highlightBlock(block);
+    });
   }
-}
-  
-let div = document.getElementById("output");
-div.innerHTML = text;
-
-div.querySelectorAll('pre code').forEach((block) => {    
-  hljs.highlightBlock(block);
-});
-
-MathJax.typesetPromise();
-div.innerHTML=marked(div.innerHTML);
 
 };
-
-
-
-// $("#preview").click(function() {
-// mdToHTML();
-// });
 
 
 $('#input').keyup(
@@ -72,12 +68,10 @@ $('#input').keyup(
 let olddata = $("#input").val();
 function checkChange(e){
   const ch = $()
-  
   if(olddata!=$(e).val()){
     const newinput = $(e).val();
     mdToHTML();
     olddata=newinput;
-
   }
 }
 
@@ -87,9 +81,3 @@ return str
         .replace(/\</g, '&lt;')
         .replace(/\>/g, '&gt;');
 };
-
-//MathJaxの読み込みタイミングが遅すぎるので表示に失敗することがあるon loadも同じ。
-// $(document).ready(function(){
-//   alert("ok");
-//   mdToHTML();
-// });

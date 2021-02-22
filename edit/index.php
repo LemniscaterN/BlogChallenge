@@ -64,8 +64,11 @@
     <script src="../js/bootstrap.min.js"></script>
 
     <!-- MathJax https://www.mathjax.org/#gettingstarted -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- headではなく、末尾で読むとうまくいくっぽい？ -->
+    
+
+    
+    
 
     <!-- Marked https://marked.js.org/ -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -73,6 +76,16 @@
     <!-- https://laboradian.com/how-to-use-highlightjs/ -->
     <link href="../js/highlight/styles/monokai.css" rel="stylesheet">
     <script src="../js/highlight/highlight.pack.js"></script>
+
+    <!-- ロゴ様フォント,本文フォント -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    <!-- font用class読み込み -->
+    <link href="../font.css" rel="stylesheet">
+
+
 
 
   </head>
@@ -125,30 +138,44 @@
                 ?>">
           </div>
 
-          <div class="row d-flex justify-content-end">
-            <label><input  type="checkbox" name="preview" checked>プレビュー</label>
-          </div>
+          <!-- <div class="row d-flex justify-content-end">
+            
+          </div> -->
 
-          <br>
+          
+            <div class="conteiner">
+              <div class="row justify-content-center">
+                <div class="col-6"></div>
+                <div class="col-sm-6 d-flex my-1 justify-content-end align-items-baseline">
+                   <!-- <div class="d-flex justify-content-end"></div> -->
+                  <label><input  type="checkbox" name="preview" checked>プレビュー</label>
+                  <?php
+                    if($articleId!=-1)echo '<button type="button" class="btn btn-danger post-btn mx-1" name="post" value="delete">削除';
+                  ?>
+                  <button type="button" class="btn post-btn btn-outline-dark mx-1" name="post" value="post">投稿
+                  <input type="hidden" name="token" value="<?php echo $token;?>">
+                  <input type="hidden" name="articleId" value="<?php echo $articleId;?>">
+                  <input name="key" type="hidden" value="post">
+                </div>
+
+              </div>
+            </div>
 
           <div class="row">
               <textarea class="col-6"  rows="20" id="input" name="content"><?php echo $content; ?></textarea>
               <div class="col-6" id="output"></div>
           </div>
         
-        <div class="row ">
-          <div class="col-9"></div>
-          <div class="col-3 d-flex justify-content-around">
-            <?php
-              if($articleId!=-1)echo '<button type="button" class="btn btn-danger post-btn" name="post" value="delete">削除';
-            ?>
-            <button type="button" class="post-btn" name="post" value="post">投稿
-            <input type="hidden" name="token" value="<?php echo $token;?>">
-            <input type="hidden" name="articleId" value="<?php echo $articleId;?>">
-            <input name="key" type="hidden" value="post">
+
+        </form>
+
+        <div class="container bg-light">
+          <div class="text-right">
+            <button class="text-right m-2 btn btn-outline-dark" onclick="$(window).scrollTop(0);">ページ上部へ</button>
           </div>
         </div>
-        </form>
+        
+        
       </div>
 
       
@@ -165,6 +192,8 @@
     </footer>
 
   </body>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="mdToHTML.js"></script>
 </html>
 

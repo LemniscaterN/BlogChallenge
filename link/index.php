@@ -28,11 +28,13 @@
     <!-- BootstrapのJS読み込み -->
     <script src="../js/bootstrap.min.js"></script>
 
-    <!-- font用class読み込み -->
-    <link href="../font.css" rel="stylesheet">
-    <!-- ロゴ様フォント -->
+    <!-- ロゴ様フォント,本文フォント -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    <!-- font用class読み込み -->
+    <link href="../font.css" rel="stylesheet">
      
   </head>
   <body>

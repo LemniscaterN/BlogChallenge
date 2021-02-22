@@ -1,3 +1,4 @@
+alert("out");
 window.MathJax = {
   startup: {
     pageReady: () => {

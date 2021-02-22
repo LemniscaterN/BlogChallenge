@@ -6,6 +6,10 @@
   require "functions/hs.php";
   require "login/loginCheck.php";
 
+  function myreplace($text){
+    return str_replace(array('#',' ','$','*'), "", $text);
+  }
+
 
   my_session_start();
   $searchWords="";
@@ -67,7 +71,7 @@
       ?>" />
 
     <meta property="og:description" content="<?php
-        if($articleId!="")echo hs(mb_substr($content,0,30).(mb_strlen($content)>30?'...':''));
+        if($articleId!="")echo hs( mb_substr(myreplace($content),0,30).((myreplace($content))>30?'...':'')) ;
         else echo "情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ";
       ?>"
     />
@@ -79,7 +83,10 @@
     <meta name="twitter:site" content="@s1870262" />
     <meta name="twitter:image" content="http://fujiweb08.php.xdomain.jp/BlogChallenge/img/icon.png" />
     <meta name="twitter:description" content="<?php
-        if($articleId!="")echo hs(mb_substr($content,0,30).(mb_strlen($content)>30?'...':''));
+        if($articleId!=""){
+          $contentFortweet = mb_substr(myreplace($content),0,30).(mb_strlen(myreplace($content))>30?'...':'');
+          echo hs($contentFortweet);
+        }
         else echo "情報系大学生ふじによるポートフォリオを兼ねたゆるいブログ";
       ?>"
     />
@@ -101,11 +108,15 @@
     <!-- BootstrapのJS読み込み -->
     <script src="js/bootstrap.min.js"></script>
 
-     <!-- font用class読み込み -->
-    <link href="font.css" rel="stylesheet">
-    <!-- ロゴ様フォント -->
+    <!-- ロゴ様フォント,本文フォント -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+
+
+     <!-- font用class読み込み -->
+     <link href="font.css" rel="stylesheet">
 
 <?php
     //検索画面でhilitされるのを防ぐ
@@ -187,8 +198,8 @@
                 for($i=0;$i<count($arts)-1;$i++){
                   echo '<div class="list-group-item list-group-item-action deconone">';
                       echo '<p>'.$arts[$i]["date"].' : '.hs($arts[$i]["tags"]).'</p>';
-                      echo '<h2><a class="text-body" href="index.php?articleId='.$arts[$i]["id"].'">'.hs($arts[$i]["title"]).'</a></h2>';
-                      echo '<p>'. hs(mb_substr($arts[$i]["content"],0,100)) .'</p>';
+                      echo '<h2><a class="text-body" style="word-wrap: break-word;" href="index.php?articleId='.$arts[$i]["id"].'">'.hs($arts[$i]["title"]).'</a></h2>';
+                      echo '<p style="word-wrap: break-word;">'.hs(mb_substr(myreplace($arts[$i]["content"]),0,100).(myreplace($arts[$i]["content"])>100?'...':'')).'</p>';
                   echo '</div>';
                 }
                 echo '</div>';
@@ -223,7 +234,7 @@
                 ';
               }
               else if($articleId!=""){           
-                echo '<h1 style="display:inline;">'.hs($title)."</h1>";
+                echo '<h1 style="display:inline;word-wrap: break-word;">'.hs($title)."</h1>";
                 echo '<p style="display:inline;">'.$date."</p>";
 
                 if (isset($_SESSION['id']))echo '&nbsp;<a href="./edit/?articleId='.$articleId.'" style="display:inline;">編集する</a>';
@@ -241,7 +252,7 @@
                 foreach($matches[1] as $key => $value){
                     $content =  str_replace($value,str_replace($search,$replace,$value),$content);
                 }
-                echo "<article>".$content."</article>";
+                echo '<article style="word-wrap: break-word;";>'.$content.'</article>';
 
               }else{
                 echo '<h1 class="text-center my-font1">Home</h1>';

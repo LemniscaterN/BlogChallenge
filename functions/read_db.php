@@ -32,14 +32,9 @@ function getEveryOtherMonthArticles($to){
     // //エラー発生で例外を投げる
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     $res = $db->query("
-        SELECT
-          DATE_FORMAT(date, '%Y-%m') AS date,
-          COUNT(*) as count
-        FROM
-          articles
-        GROUP BY
-          DATE_FORMAT(date, '%Y%m')
-        ORDER BY date DESC
+        SELECT date,COUNT(*) as count FROM 
+          (SELECT DATE_FORMAT(date, '%Y-%m') AS date FROM articles) As subq1 
+        GROUP BY date
     ");
     foreach( $res as $row ) {
 		    echo '<li><a href="'.$to.'?words='.$row["date"].'">'."$row[date]($row[count])</a></li>";        

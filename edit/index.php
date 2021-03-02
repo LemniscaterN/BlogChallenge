@@ -84,6 +84,7 @@
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
     <!-- font用class読み込み -->
     <link href="../font.css" rel="stylesheet">
+    <link href="../css/my-mathjax.css" rel="stylesheet">
 
 
 

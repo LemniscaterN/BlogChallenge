@@ -117,9 +117,11 @@
 
      <!-- font用class読み込み -->
      <link href="font.css" rel="stylesheet">
+     <!-- オリジナルCSS -->
+     <link href="css/my-mathjax.css" rel="stylesheet">
 
 <?php
-    //検索画面でhilitされるのを防ぐ
+    //検索画面でhilgitされるのを防ぐ
     if($articleId!=""){
       echo '
         <!-- MathJax https://www.mathjax.org/#gettingstarted -->
@@ -259,9 +261,9 @@
                 echo "<p>「既存のサイトにアウトプットするくらいなら、いっそ自分でアウトプット用のサイトを作れば作る過程もアウトプットになって一石二鳥なのでは？」<br>との考えで出来たフジさんによるフジさんの為のブログです</p>";
                 echo "<p>PHP、Javascript、Bootstrapを利用して作成しました。</p>";
                 echo '<div class="d-flex justify-content-around">
-                <img src="img/php-icon.svg" height="90" alt="PHPのロゴ">
-                <img src="img/js-icon.svg"  height="90" alt="JSのロゴ">
-                <img src="img/boot-icon.svg"  height="90" alt="Bootstrapのロゴ">
+                <img src="img/php-icon.svg" height="90" style="max-width:33%;" alt="PHPのロゴ">
+                <img src="img/js-icon.svg"  height="90" style="max-width:33%;" alt="JSのロゴ">
+                <img src="img/boot-icon.svg"  height="90" style="max-width:33%;" alt="Bootstrapのロゴ">
               </div><br>';
 
                 echo "<p>TeX形式の数式やMarkdown形式、コードハイライトが利用できることを特徴としています。</p>";

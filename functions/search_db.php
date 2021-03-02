@@ -40,6 +40,7 @@ function day_search_db($date,$page){
             $key++;
         }
         $rows+=array("count"=>$count);
+        // echo var_dump($rows) . "<br>";
         return $rows;
     }catch (PDOExcption $e) {
         echo "erro";
@@ -93,7 +94,6 @@ function month_search_db($date,$page){
         // foreach($rows as $row){
         //     echo "Id:".$row['id']."<br>";
         // }
-
         return $rows;
     }catch (PDOExcption $e) {
         echo "erro";
@@ -101,8 +101,6 @@ function month_search_db($date,$page){
         return false;
     }
 }
-
-
 
 function year_search_db($date,$page){
     if(is_numeric($page)==false)$page=0;
@@ -118,7 +116,6 @@ function year_search_db($date,$page){
                 GROUP BY articleId) AS subq2 
             ON articles.id = articleId) as subq3 
         WHERE date BETWEEN "'.$date.'-01-01'.'" AND "'.$date.'-12-31"';
-
         $sql2 = '
         SELECT * FROM
             (SELECT id,title,content,date,tags FROM articles LEFT JOIN 
@@ -224,8 +221,7 @@ function word_search_db($words,$page){
             $rows+=array($key=>$result);
             $key++;
         }
-        $rows+=array("count"=>$count);
-        // displayArticleList($stmt);
+        $rows+=array("count"=>$count); 
         return $rows;
     }catch (PDOExcption $e) {
         echo "erro";
@@ -276,6 +272,8 @@ function tag_search_db($tag,$page){
         $stmt->bindValue(':tag',$tag, PDO::PARAM_STR); 
         $stmt->bindValue(':page',$page*10, PDO::PARAM_STR); 
         $stmt->execute();
+
+        // echo var_dump($result);
         
         $rows=[];
 
@@ -285,6 +283,8 @@ function tag_search_db($tag,$page){
             $key++;
         }
         $rows+=array("count"=>$count);
+
+        // echo var_dump($rows);
         return $rows;
     }catch (PDOExcption $e) {
       error($e." Writiing database was failed.");

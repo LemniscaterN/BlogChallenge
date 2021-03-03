@@ -91,8 +91,8 @@
                       <p>オンライン飲み会を楽しむ為のミニゲーム。推奨人数3人以上、1ゲーム10分程度</p>
                     </li>
                     <li>
-                      <p><a href="#">悠久を生きし者共</a> 2021/3(予定)</p>
-                      <p>いつまでも若くありたいあなたへ。</p>
+                      <p><a href="https://lemniscatern.github.io/minigames/mackerel/">Mackerel（マカレル)</a> 2021/3</p>
+                      <p>Mackerel仙人があなたを理想の年齢にしてくださいます。（実年齢を任意の年齢＋月で表示する。）</p>
                     </li>
                   </ul>                  
               </li>

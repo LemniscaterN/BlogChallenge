@@ -9,12 +9,12 @@
 
   if (isset($_SESSION['id'])) {
       // echo "成功！";
-      // header('Location:../index.php'); 
+      header('Location:../index.php'); 
   }
   else if(isset($_POST['name']) && isset($_POST['password']) ){
-    // if(login()==true){
-    //   header('Location:../index.php');
-    // }
+    if(login()==true){
+      header('Location:../index.php');
+    }
   }
 ?>
 <!DOCTYPE html>
@@ -139,16 +139,14 @@
     </main>
 
 
-    <footer class="text-center" style="background-color:#6699CC;">© 2022 Fuji
-      <?php
-        // if (isset($_SESSION['id'])){
-        //   echo '<a href="logout.php">ログアウト</a>';
-        //   echo '<input type="hidden" name="token" value="token">';
-        // }else{
-        //   echo '<a href="index.php">ログイン</a>';
-        // }
-      ?>
-    </footer>
+    <footer class="text-center" style="background-color:#6699CC;">© 2022 Fuji<?php
+        if (isset($_SESSION['id'])){
+          echo '<a href="logout.php">ログアウト</a>';
+          echo '<input type="hidden" name="token" value="token">';
+        }else{
+          echo '<a href="index.php">ログイン</a>';
+        }
+    ?></footer>
 
   </body>
   

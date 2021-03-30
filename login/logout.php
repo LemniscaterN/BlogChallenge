@@ -26,7 +26,7 @@ session_destroy();
 
 
 $hostname = $_SERVER['HTTP_HOST'];//ドメインを取得
-echo "host".$hostname;
+// echo "host".$hostname;
 if (!empty($_SERVER['HTTP_REFERER']) && (strpos($_SERVER['HTTP_REFERER'],$hostname) !== false)) {
     header('Location:'. $_SERVER['HTTP_REFERER']);
 }else header("Location:../index.php");

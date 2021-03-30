@@ -65,11 +65,7 @@
 
     <!-- MathJax https://www.mathjax.org/#gettingstarted -->
     <!-- headではなく、末尾で読むとうまくいくっぽい？ -->
-    
-
-    
-    
-
+  
     <!-- Marked https://marked.js.org/ -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
@@ -195,11 +191,57 @@
   </body>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <script src="mdToHTML.js"></script>
+  <script src="../MdHTML.js"></script>
 </html>
 
 
 <script>
+
+//グローバル変数としてinputの中身と出力先を保持。
+let olddata = null;
+let OutDiv = null;
+MathJax = {
+      chtml: {
+        matchFontHeight: false
+      },
+      tex: {
+        displayMath: [ ["$$","$$"] ],
+        inlineMath: [ ["$","$"] ],
+        processEscapes: false
+      },
+      options: {
+        ignoreHtmlClass: "tex2jax_ignore",
+        processHtmlClass: "tex2jax_process"
+      },
+      startup: {
+        typeset: false,
+        skipStartupTypeset: true,
+        pageReady: () => {
+          //準備が整うと呼ばれる。MathJax2系ではMathjax.Hub.Queueだったっぽい？
+          console.log("Mathjax pageReady");
+          olddata = document.getElementById("input").value;
+          OutDiv = document.getElementById("output");
+          MdToHTML(olddata,OutDiv);          
+        }
+      }
+};
+
+$('#input').keyup(
+  function(){
+    const ch = $('input[name="preview"]').is(':checked');
+    if(ch)checkChange(this);
+  }
+);
+
+function checkChange(e){
+  const ch = $()
+  if(olddata!=$(e).val()){
+    const newinput = $(e).val();
+    MdToHTML(newinput,OutDiv);
+    olddata=newinput;
+  }
+}
+
 $('#searchForm').submit(function() {
   if(!$("#searchInput").val().trim())return false;
 });
@@ -220,17 +262,16 @@ $('.post-btn').click(function(){
 
 
 //thanks https://deecode.net/?p=1104
+//tabの補完
 function onTextAreaKeyDown(event, object) {
     // キーコードと入力された文字列
     var keyCode = event.keyCode;
     var keyVal = event.key;
-
     // カーソル位置
     var cursorPosition = object.selectionStart;
     // カーソルの左右の文字列値
     var leftString = object.value.substr(0, cursorPosition);
     var rightString = object.value.substr(cursorPosition, object.value.length);
-
     // タブキーの場合
     if(keyCode === 9) {
         event.preventDefault();  // 元の挙動を止める
@@ -240,23 +281,22 @@ function onTextAreaKeyDown(event, object) {
         object.selectionEnd = cursorPosition + 1;
     }
     // かぎかっこの場合の自動補完
-    else if(keyVal === "{") {
-        event.preventDefault();  // 元の挙動を止める
-        // textareaの値をカーソル左の文字列 + {} + カーソル右の文字列にする
-        object.value = leftString + "{}" + rightString;
-        // カーソル位置をタブスペースの後ろにする
-        object.selectionEnd = cursorPosition + 1;
-    }
-    // かっこの場合の自動補完
-    else if(keyVal === "[") {
-        event.preventDefault();  // 元の挙動を止める
-        // textareaの値をカーソル左の文字列 + [] + カーソル右の文字列にする
-        object.value = leftString + "[]" + rightString;
-        // カーソル位置をタブスペースの後ろにする
-        object.selectionEnd = cursorPosition + 1;
-    }
+    // else if(keyVal === "{") {
+    //     event.preventDefault();  // 元の挙動を止める
+    //     // textareaの値をカーソル左の文字列 + {} + カーソル右の文字列にする
+    //     object.value = leftString + "{}" + rightString;
+    //     // カーソル位置をタブスペースの後ろにする
+    //     object.selectionEnd = cursorPosition + 1;
+    // }
+    // // かっこの場合の自動補完
+    // else if(keyVal === "[") {
+    //     event.preventDefault();  // 元の挙動を止める
+    //     // textareaの値をカーソル左の文字列 + [] + カーソル右の文字列にする
+    //     object.value = leftString + "[]" + rightString;
+    //     // カーソル位置をタブスペースの後ろにする
+    //     object.selectionEnd = cursorPosition + 1;
+    // }
 }
-
 // テキストエリアのキー入力時の関数を設定
 document.getElementById("input").onkeydown = function(event) {onTextAreaKeyDown(event, this);}
 

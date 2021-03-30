@@ -4,15 +4,17 @@
   require "../functions/write_db.php";
   require "../functions/search_db.php";
   require "loginCheck.php";
-  my_session_start();
+  // my_session_start();
+  session_start();
 
   if (isset($_SESSION['id'])) {
-      header('Location:../index.php'); 
+      // echo "成功！";
+      // header('Location:../index.php'); 
   }
-  else if( isset($_POST['name']) && isset($_POST['password']) ){
-    if(login()==true){
-      header('Location:../index.php');
-    }
+  else if(isset($_POST['name']) && isset($_POST['password']) ){
+    // if(login()==true){
+    //   header('Location:../index.php');
+    // }
   }
 ?>
 <!DOCTYPE html>
@@ -95,7 +97,7 @@
             </li>
           </ul>
           
-          <form action="index.php" method="get" class="form-inline my-2 my-lg-0" id="searchForm" >
+          <form action="../index.php" method="get" class="form-inline my-2 my-lg-0" id="searchForm" >
             <input class="form-control mr-sm-2" name="words" type="search" placeholder="Search Article" aria-label="Search" id="searchInput">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
           </form>
@@ -124,7 +126,7 @@
                       <div id="output"></div>
                       <input name="name" type="text" placeholder="username">
                       <input name="password" type="password" placeholder="password">
-                      <button class="btn btn-info btn-block login" type="submit">Login</button>
+                      <button class="btn btn-info btn-block login" type="submit" id="login">Login</button>
                   </form>
               </div>
         </div>
@@ -139,12 +141,12 @@
 
     <footer class="text-center" style="background-color:#6699CC;">© 2022 Fuji
       <?php
-        if (isset($_SESSION['id'])){
-          echo '<a href="logout.php">ログアウト</a>';
-          echo '<input type="hidden" name="token" value="token">';
-        }else{
-          echo '<a href="index.php">ログイン</a>';
-        }
+        // if (isset($_SESSION['id'])){
+        //   echo '<a href="logout.php">ログアウト</a>';
+        //   echo '<input type="hidden" name="token" value="token">';
+        // }else{
+        //   echo '<a href="index.php">ログイン</a>';
+        // }
       ?>
     </footer>
 
@@ -155,42 +157,6 @@
 
 
 <script>
-$('#searchForm').submit(function() {
-  if(!$("#searchInput").val().trim())return false;
-});
-
-MathJax = {
-  startup: {
-    typeset: true
-  },
-  tex: {
-    inlineMath: [ ['$','$']],
-    displayMath: [ ['$$','$$']],
-    processEscapes: true
-  },
-  options: {
-    ignoreHtmlClass: 'tex2jax_ignore',
-    processHtmlClass: 'tex2jax_process'
-  }
-};
-
-let escapeHTML = function (str) {
-  return str
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;');
-};
-
-document.querySelectorAll('pre code').forEach((block) => {    
-    block.innerHTML=escapeHTML(block.innerHTML);
-    hljs.highlightBlock(block);
-});
-
-document.querySelectorAll('article').forEach((block) => {    
-    console.log("OK:"+block);
-    let html = marked(block.innerHTML);
-    block.innerHTML=html;
-});
-
 $('#searchForm').submit(function() {
   if(!$("#searchInput").val().trim())return false;
 });

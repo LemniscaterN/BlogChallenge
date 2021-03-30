@@ -8,36 +8,30 @@
 //     "margin":"0",
 //     "opacity":"0"
 //     });
-    
-
 //     $('.login').remove();
-
 // }
 
 $(function(){
     var textfield = $("input[name=name]");
-                $('button[type="submit"]').click(function(e) {
+                $('#login').click(function(e) {
                     // e.preventDefault();
                     
-                    if (textfield.val() != "" && $("input[name=password]").val()!="") {
+                    if (textfield.val().trim() != "" && $("input[name=password]").val().trim()!="") {
                         //$("body").scrollTo("#output");
 
-                        sucessLogin(textfield.val());
+                        // sucessLogin(textfield.val());
 
                         //show avatar
                         // $(".avatar").css({
                         //     "background-image": "url('http://api.randomuser.me/0.3.2/portraits/women/35.jpg')"
                         // });
-                        // return true;
-                        return false;
-                    } else {
+                        return true;
+                    }else{
                         //remove success mesage replaced with error message
                         $("#output").removeClass(' alert alert-success');
                         $("#output").addClass("alert alert-danger animated fadeInUp").html("Enter a username and password");
                         return false;
                     }
-                    //console.log(textfield.val());
-    
                 });
     });
     

@@ -1,4 +1,23 @@
+/* 数式が画面内に収まるようにする */
 mjx-container{
     overflow-x: auto;
     overflow-y: hidden;
+}
+
+/* 引用符に色を付ける */
+blockquote {
+    color: gray;
+    padding: 3px 0px 3px 3px;
+
+    margin: 0;
+    border-left: 3px solid #CCCCCC;
+}
+
+article>blockquote {
+    margin-bottom: 10px;
+}
+
+blockquote p{
+    margin-top: 0;
+    margin-bottom: 0;
 }

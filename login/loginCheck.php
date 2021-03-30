@@ -42,6 +42,8 @@ function login(){
 
                     $_SESSION['id']=$row['id'];
                     $_SESSION['deleted_time'] = time();
+
+                    // echo "成功";
                     
 
                     return true;

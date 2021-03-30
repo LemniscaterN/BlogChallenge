@@ -134,11 +134,41 @@
         <!-- https://laboradian.com/how-to-use-highlightjs/ -->
         <link href="js/highlight/styles/monokai.css" rel="stylesheet">
         <script src="js/highlight/highlight.pack.js"></script>
+
+        <script src="MdHTML.js"></script>
+
+        <script>
+          MathJax = {
+            chtml: {
+              matchFontHeight: false
+            },
+            tex: {
+              displayMath: [ ["$$","$$"] ],
+              inlineMath: [ ["$","$"] ],
+              processEscapes: false
+            },
+            options: {
+              ignoreHtmlClass: "tex2jax_ignore",
+              processHtmlClass: "tex2jax_process"
+            },
+            startup: {
+              typeset: false,
+              skipStartupTypeset: true,
+              pageReady: () => {
+                //準備が整うと呼ばれる。MathJax2系ではMathjax.Hub.Queueだったっぽい？
+                console.log("Mathjax pageReady");
+                let div = document.querySelector("article");
+                //入力,出力
+                MdToHTML(div.innerText,div);          
+              }
+            }
+          };
+        </script>
       ';
     }
-?> 
-
-  </head>
+    
+?>
+</head>
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#6699CC;">
@@ -247,14 +277,16 @@
                   echo '<a href="index.php?words='.urlencode("#".$name).'" style="display:inline;">'.hs($name)." </a>";
                 }
                 
-                //<,>をエスケープ
+                //記事内部の<>をエスケープして正しく表示される様にする。
                 $search = array('<','>');
                 $replace = array('&lt;','&gt;');
-                preg_match_all('/<pre><code>([\s\S]*?)<\/pre><\/code>/m', $content, $matches);
-                foreach($matches[1] as $key => $value){
-                    $content =  str_replace($value,str_replace($search,$replace,$value),$content);
-                }
-                echo '<article style="word-wrap: break-word;";>'.$content.'</article>';
+                //コードハイライトは```~```にのみ対応
+                // preg_match_all('/```([\s\S]*?)```/m', $content, $matches);
+                // foreach($matches[1] as $key => $value){
+                //     $content =  str_replace($value,str_replace($search,$replace,$value),$content);
+                // }
+                $content = str_replace($search,$replace,$content);
+                echo '<article style="word-wrap: break-word;";><pre>'.$content.'</pre></article>';
 
               }else{
                 echo '<h1 class="text-center my-font1">Home</h1>';
@@ -282,16 +314,11 @@
                 
               }
             ?>
-
-
-
             
-          <!-- ここまでcol-9の左エリア -->
-          </div>
-
-
+          </div><!-- ここまでcol-9の左エリア -->
+          
+          <!-- ここから右側のサイドバー -->
           <div class="col-sm-3 border-left">
-
             <div class="row justify-content-left">
               <div class="col-sm-auto">
                 <h3>タグ</h3>
@@ -321,11 +348,6 @@
             </div>
 
           </div>
-
-          <div class="row">
-    
-          </div>
-
           
         </div>
       </div>
@@ -333,63 +355,19 @@
     </main>
 
 
-    <footer class="text-center" style="background-color:#6699CC;">© 2022 Fuji
-      <?php
+    <footer class="text-center" style="background-color:#6699CC;">© 2022 Fuji<?php
           if (isset($_SESSION['id'])){
             echo '<a href="./login/logout.php">ログアウト</a>';
             echo '<input type="hidden" name="token" value="token">';
           }else{
             echo '<a href="./login/index.php">ログイン</a>';
           }
-      ?>
-    </footer>
+    ?></footer>
 
   </body>
 </html>
 
-
-
 <script>
-
-$('#searchForm').submit(function() {
-  if(!$("#searchInput").val().trim())return false;
-});
-
-
-<?php 
-if($articleId!=""){
-  echo "$(document).ready(function(){
-    MathJax = {
-        startup: {
-          typeset: true
-        },
-        tex: {
-          inlineMath: [ ['$','$']],
-          displayMath: [ ['$$','$$']],
-          processEscapes: true
-        },
-        options: {
-          ignoreHtmlClass: 'tex2jax_ignore',
-          processHtmlClass: 'tex2jax_process'
-        }
-    };
-  
-    document.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
-  
-    document.querySelectorAll('article').forEach((block) => {    
-        let html = marked(block.innerHTML);
-        block.innerHTML=html;
-    });
-  });   
-  ";
-}
-?>
-
-
-
-
 $('#searchForm').submit(function() {
   if(!$("#searchInput").val().trim())return false;
 });

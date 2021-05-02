@@ -343,7 +343,8 @@
 
             <div class="row justify-content-center">
               <div class="col-sm-auto d-none d-lg-block">
-                <a class="twitter-timeline" data-lang="ja" data-width="200" data-height="300" href="https://twitter.com/s1870262?ref_src=twsrc%5Etfw">Tweets by s1870262</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>   
+                <!--https://publish.twitter.com/?query=https%3A%2F%2Ftwitter.com%2Fspring1262&widget=Timeline-->
+                <a class="twitter-timeline" href="https://twitter.com/spring1262?ref_src=twsrc%5Etfw">Tweets by spring1262</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
               </div>
             </div>
 
